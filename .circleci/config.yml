@@ -36,6 +36,7 @@ jobs:
   deploy:
     docker:
       - image: google/cloud-sdk
+    executor: python/default
     steps:
       - run:
           name: Authorizing gcloud
@@ -52,4 +53,6 @@ workflows:
   main:
     jobs:
       - build-and-test
-      - deploy
+      - deploy:
+          requires:
+            - build-and-test
