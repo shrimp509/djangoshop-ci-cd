@@ -27,6 +27,11 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build-and-text
+            - app.yaml
 
   deploy:
     docker:
