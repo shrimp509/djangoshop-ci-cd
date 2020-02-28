@@ -78,10 +78,10 @@ DATABASES = {
 	### mysql of google cloud sql
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'django-mysql'
+		'NAME': 'django-mysql',
 		'HOST': '/cloudsql/django-shop-269303:asia-east1:django-mysql',
 		'USER': 'rs',
-		'PASSWORD': 'admin'
+		'PASSWORD': 'admin',
 	},
 	### sqlite
     # 'default': {
