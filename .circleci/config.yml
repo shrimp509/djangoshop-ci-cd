@@ -40,12 +40,6 @@ jobs:
     steps:
       - checkout
       - run:
-          command: |
-            sudo apt-get install python3-venv
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - run:
           name: Authorizing gcloud
           command: |
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account django-shop-269303@appspot.gserviceaccount.com --key-file=-
