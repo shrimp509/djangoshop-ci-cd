@@ -18,6 +18,10 @@ jobs:
           paths:
             - "venv"
       - run:
+          name: Download mysql-client
+          command: |
+            apt-get install mysql-client
+      - run:
           name: Authorizing gcloud
           command: |
             echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account django-shop-269303@appspot.gserviceaccount.com --key-file=-
