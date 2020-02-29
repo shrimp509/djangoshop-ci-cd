@@ -73,32 +73,41 @@ WSGI_APPLICATION = 'django_on_gae.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-import pymysql  # noqa: 402
-pymysql.install_as_MySQLdb()
 
-DATABASES = {
-	### mysql of google cloud sql
-	'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'NAME': 'shop',
-		'HOST': '/cloudsql/django-shop-269303:asia-east1:django-mysql',
-		'USER': 'rs',
-		'PASSWORD': 'admin',
-	},
-	### sqlite
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-    ### mongo db
-    # 'default': {
-    #     'ENGINE': 'djongo',
-    #     'NAME': 'shop',
-    #     'HOST': 'mongodb+srv://rs:vu8vu8@firstcluster-h2ui5.gcp.mongodb.net/test?authSource=admin&replicaSet=FirstCluster-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass%20Community&retryWrites=true&ssl=true',
-    #     'USER': 'rs',
-    #     'PASSWORD': 'vu8vu8'
-    # }
-}
+if os.getenv('GAE_APPLICATION', None):
+	DATABASES = {
+		### mysql of google cloud sql
+		'default': {
+			'ENGINE': 'django.db.backends.mysql',
+			'NAME': 'shop',
+			'HOST': '/cloudsql/django-shop-269303:asia-east1:django-mysql',
+			'USER': 'rs',
+			'PASSWORD': 'admin',
+		},
+		### sqlite
+	    # 'default': {
+	    #     'ENGINE': 'django.db.backends.sqlite3',
+	    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+	    # }
+	    ### mongo db
+	    # 'default': {
+	    #     'ENGINE': 'djongo',
+	    #     'NAME': 'shop',
+	    #     'HOST': 'mongodb+srv://rs:vu8vu8@firstcluster-h2ui5.gcp.mongodb.net/test?authSource=admin&replicaSet=FirstCluster-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass%20Community&retryWrites=true&ssl=true',
+	    #     'USER': 'rs',
+	    #     'PASSWORD': 'vu8vu8'
+	    # }
+	}
+else:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql',
+			'NAME': 'shop',
+			'HOST': '35.229.134.79',
+			'USER': 'rs',
+			'PASSWORD': 'admin',
+		}
+	}
 
 
 # Password validation
