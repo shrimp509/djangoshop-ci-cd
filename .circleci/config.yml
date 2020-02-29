@@ -17,6 +17,7 @@ jobs:
             pwd
       - run:
           name: Run cloud sql proxy
+          background: true
           command: |
             ./cloud_sql_proxy -instances=django-shop-269303:asia-east1:django-mysql=tcp:3306 \
                   -credential_file=./key.json &
