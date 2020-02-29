@@ -1,16 +1,24 @@
 version: 2.1
 
+orbs: circleci/python@0.2.1
+
 jobs:
   build-and-test:
-    docker:
-      - image: google/cloud-sdk
+    executor: python/default
     steps:
       - checkout
+      - run:
+          name: Install and Run cloud sql proxy
+          command: |
+            wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+            chmod +x cloud_sql_proxy
+            echo ${GCLOUD_SERVICE_KEY} >> key.json
+            ./cloud_sql_proxy -instances=django-shop-269303:asia-east1:django-mysql=tcp:3306 \
+                  -credential_file=./key.json &
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           command: |
-            apt-get install -y python3 python3-venv
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
@@ -18,16 +26,6 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
-      - run:
-          name: Download mysql-client
-          command: |
-            apt-get install -y mysql-client
-      - run:
-          name: Authorizing gcloud
-          command: |
-            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account django-shop-269303@appspot.gserviceaccount.com --key-file=-
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run:
           name: Running tests
           command: |
@@ -61,4 +59,5 @@ jobs:
 workflows:
   main:
     jobs:
+      -build-and-test
       - deploy

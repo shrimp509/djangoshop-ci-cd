@@ -103,7 +103,8 @@ else:
 		'default': {
 			'ENGINE': 'django.db.backends.mysql',
 			'NAME': 'shop',
-			'HOST': '35.229.134.79',
+			'HOST': '127.0.0.1',
+			'POST': '3306'
 			'USER': 'rs',
 			'PASSWORD': 'admin',
 		}
