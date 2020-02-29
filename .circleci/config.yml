@@ -15,6 +15,9 @@ jobs:
             chmod +x cloud_sql_proxy
             echo ${GCLOUD_SERVICE_KEY} >> key.json
             pwd
+      - run:
+          name: Run cloud sql proxy
+          command: |
             ./cloud_sql_proxy -instances=django-shop-269303:asia-east1:django-mysql=tcp:3306 \
                   -credential_file=./key.json &
       - restore_cache:
