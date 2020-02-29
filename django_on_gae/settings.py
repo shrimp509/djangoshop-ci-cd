@@ -73,6 +73,8 @@ WSGI_APPLICATION = 'django_on_gae.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+import pymysql  # noqa: 402
+pymysql.install_as_MySQLdb()
 
 DATABASES = {
 	### mysql of google cloud sql
