@@ -103,7 +103,7 @@ else:
 		'default': {
 			'ENGINE': 'django.db.backends.mysql',
 			'NAME': 'shop',
-			'HOST': '/cloudsql/django-shop-269303:asia-east1:django-mysql',
+			'HOST': '127.0.0.1',
 			'USER': 'rs',
 			'PASSWORD': 'admin',
 		}
