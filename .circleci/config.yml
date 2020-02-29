@@ -6,6 +6,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
+      - image: circleci/python:3.7
       - image: circleci/mysql:5.7
         environment:
           MYSQL_DATABASE: shop
