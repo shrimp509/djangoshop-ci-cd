@@ -14,6 +14,7 @@ jobs:
             wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
             chmod +x cloud_sql_proxy
             echo ${GCLOUD_SERVICE_KEY} >> key.json
+            pwd
             ./cloud_sql_proxy -instances=django-shop-269303:asia-east1:django-mysql=tcp:3306 \
                   -credential_file=./key.json &
       - restore_cache:
